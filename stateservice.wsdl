@@ -1,0 +1,42 @@
+<definitions name="StateService" targetNamespace="http://www.steepsouth.com/wsdl/StateService.wsdl" 
+  xmlns="http://schemas.xmlsoap.org/wsdl/" 
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:tns="http://www.steepsouth.com/wsdl/StateService.wsdl" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <message name="getStateRequest">
+    <part name="stateId" type="xsd:string"/>
+  </message>
+
+  <message name="getStateResponse">
+    <part name="stateId" type="xsd:string"/>
+    <part name="stateName" type="xsd:string"/>
+  </message>
+
+  <portType name="State_PortType">
+    <operation name="getStateList">
+      <input message="tns:getStateRequest"/>
+      <output message="tns:getStateResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="State_Binding" type="tns:State_PortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="getStateList">
+      <soap:operation soapAction="getStateList"/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:steepsouth:stateservice" use="encoded"/>
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:steepsouth:stateservice" use="encoded"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="State_Service">
+    <documentation>WSDL File for StateService</documentation>
+    <port binding="tns:State_Binding" name="State_Port">
+      <soap:address location="http://localhost:9090/statesoapservice/" />
+    </port>
+  </service>
+</definitions>
